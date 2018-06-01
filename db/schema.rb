@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601161858) do
+ActiveRecord::Schema.define(version: 20180601163953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blog_posts", force: :cascade do |t|
+    t.string "title"
+    t.text "article"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_blog_posts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "uid"
@@ -28,4 +37,5 @@ ActiveRecord::Schema.define(version: 20180601161858) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  add_foreign_key "blog_posts", "users"
 end
